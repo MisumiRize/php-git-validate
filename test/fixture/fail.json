@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "test": "false"
+    },
+    "pre-commit": ["test"]
+}

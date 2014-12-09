@@ -1,0 +1,25 @@
+{
+    "name": "misumirize/git-validate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Misumi Rize",
+            "email": "r@ayase-e.li"
+        }
+    ],
+    "require": {
+        "symfony/filesystem": "~2.6",
+        "symfony/console": "~2.6",
+        "symfony/process": "~2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "mikey179/vfsStream": "*"
+    },
+    "autoload": {
+        "psr-4": { "Lethe\\GitValidate\\": "lib/" }
+    },
+    "scripts": {
+        "test": "phpunit test/"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "test": "echo 'success'"
+    },
+    "pre-commit": ["test"]
+}
