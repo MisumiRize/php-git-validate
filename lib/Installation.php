@@ -2,6 +2,7 @@
 
 namespace Lethe\GitValidate;
 
+use Phine\Path\Path;
 use Symfony\Component\Filesystem\Filesystem;
 
 class Installation
@@ -18,8 +19,8 @@ class Installation
         $gitRoot = self::findGitRoot($start);
 
         foreach ($hooks as $hook) {
-            $dest = $gitRoot.'/.git/hooks/'.$hook;
-            $source = realpath(__DIR__.'/../bin/validate');
+            $dest = Path::join([$gitRoot, '.git', 'hooks', $hook]);
+            $source = Path::join([dirname(__DIR__), 'bin', 'validate']);
 
             if ($this->fs->exists($dest)) {
                 if ((new \SplFileInfo($dest))->isLink()) {
@@ -41,7 +42,7 @@ class Installation
 
         $gitRoot = self::findGitRoot();
 
-        $targetPath = $gitRoot.'/'.$target;
+        $targetPath = Path::join([$gitRoot, $target]);
 
         $this->fs->copy($source, $targetPath, $override);
     }
@@ -50,7 +51,7 @@ class Installation
     {
         $start = $start ?: self::findParent();
         $root = null;
-        $file = new \SplFileInfo($start.'/.git');
+        $file = new \SplFileInfo(Path::join([$start, '.git']));
         if ($file->isDir()) {
             $root = $start;
         } elseif (dirname($start) !== $start) {
@@ -62,11 +63,11 @@ class Installation
 
     private static function findParent()
     {
-        $file = new \SplFileInfo(realpath(__DIR__.'/../../../../composer.json'));
+        $file = new \SplFileInfo(Path::canonical(Path::join([__DIR__, '..', '..', '..', '..', 'composer.json'])));
         if ($file->isFile()) {
-            return realpath(__DIR__.'/../../../../');
+            return Path::canonical(Path::join([__DIR__, '..', '..', '..', '..']));
         }
 
-        return realpath(__DIR__.'/../');
+        return dirname(__DIR__);
     }
 }

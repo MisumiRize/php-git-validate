@@ -2,6 +2,7 @@
 
 namespace Lethe\GitValidate;
 
+use Phine\Path\Path;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,8 +40,8 @@ class ValidateCommand extends Command
     {
         $project = Installation::findGitRoot();
         $path = $input->getOption('config');
-        if (strpos($path, '/') !== 0) {
-            $path = $project.'/'.$path;
+        if (Path::isLocal($path)) {
+            $path = Path::join([$project, $path]);
         }
 
         $config = $this->readConfig($path);
@@ -59,7 +60,7 @@ class ValidateCommand extends Command
             $output->writeln(sprintf('running %s checks...', $hook));
         }
 
-        $composer = $this->readConfig($project.'/composer.json');
+        $composer = $this->readConfig(Path::join([$project, 'composer.json']));
 
         $scripts = array_reduce([$composer, $config], function ($carry, $c) {
             $scripts = isset($c->scripts) ? $c->scripts : new \stdClass();
@@ -73,7 +74,7 @@ class ValidateCommand extends Command
 
         $env = array_merge($_SERVER,
             [
-                'PATH' => $project.'/vendor/bin'.PATH_SEPARATOR.getEnv('PATH')
+                'PATH' => Path::join([$project, 'vendor', 'bin']).PATH_SEPARATOR.getEnv('PATH')
             ]);
 
         $tasks = array_map(function ($command) use ($scripts) {

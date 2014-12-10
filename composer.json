@@ -10,7 +10,8 @@
     "require": {
         "symfony/filesystem": "~2.6",
         "symfony/console": "~2.6",
-        "symfony/process": "~2.6"
+        "symfony/process": "~2.6",
+        "phine/path": "~1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
