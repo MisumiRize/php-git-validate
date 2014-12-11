@@ -43,7 +43,7 @@ class ValidateCommand extends Command
         }
 
         $content = [];
-        while (!$file->eof) {
+        while (!$file->eof()) {
             $content[] = $file->fgets();
         }
 
