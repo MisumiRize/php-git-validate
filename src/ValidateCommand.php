@@ -24,7 +24,7 @@ class ValidateCommand extends Command
     {
         try {
             $file = new \SplFileObject($path);
-            $config = ($file->isReadable()) ? json_decode($file->fread($file->getSize())) : new \stdClass();
+            $config = ($file->isReadable()) ? json_decode($this->readContent($file)) : new \stdClass();
         } catch (\RuntimeException $e) {
             $config = new \stdClass();
         }
@@ -34,6 +34,20 @@ class ValidateCommand extends Command
         }
 
         return $config;
+    }
+
+    private function readContent(\SplFileObject $file)
+    {
+        if (method_exists($file, 'fread')) {
+            return $file->fread($file->getSize());
+        }
+
+        $content = [];
+        while (!$file->eof) {
+            $content[] = $file->fgets();
+        }
+
+        return implode("\n", $content);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -16,7 +16,7 @@ class Installation
 
     public function installHooks($hooks)
     {
-        $gitRoot = self::findGitRoot($start);
+        $gitRoot = self::findGitRoot();
 
         foreach ($hooks as $hook) {
             $dest = Path::join([$gitRoot, '.git', 'hooks', $hook]);
