@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "php": ">=5.4",
         "symfony/filesystem": "~2.6",
         "symfony/console": "~2.6",
         "symfony/process": "~2.6",
@@ -18,9 +19,9 @@
         "mikey179/vfsStream": "*"
     },
     "autoload": {
-        "psr-4": { "Lethe\\GitValidate\\": "lib/" }
+        "psr-4": { "Lethe\\GitValidate\\": "src/" }
     },
     "scripts": {
-        "test": "phpunit test/"
+        "test": "phpunit"
     }
 }
