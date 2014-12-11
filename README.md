@@ -1,4 +1,4 @@
-# GitValidate
+# GitValidate [![Build Status](https://travis-ci.org/MisumiRize/php-git-validate.svg)](https://travis-ci.org/MisumiRize/php-git-validate)
 
 GitValidate is a CLI tool for Git hook validation.
 
