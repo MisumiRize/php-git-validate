@@ -1,5 +1,7 @@
 {
     "name": "misumirize/git-validate",
+    "type": "library",
+    "description": "CLI tool for Git hook validation",
     "license": "MIT",
     "authors": [
         {
